@@ -1,0 +1,17 @@
+Metadata-Version: 2.1
+Name: pytdx
+Version: 1.72r2
+Summary: A Python Interface to TDX protocol
+Home-page: https://github.com/wenxingxing/pytdx
+Author: ['RainX<Jing Xu>', 'yutiansut']
+Author-email: i@rainx.cc
+License: hard study everyday
+Platform: hard study everyday
+Requires-Dist: click
+Requires-Dist: pandas
+Requires-Dist: six
+Requires-Dist: cryptography
+
+hard study everyday
+
+

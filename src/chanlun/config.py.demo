@@ -1,0 +1,144 @@
+import pathlib
+
+"""
+服务总配置文件（模板）
+
+使用方法：复制本文件为同目录下的 config.py 并填写配置
+    cp src/chanlun/config.py.demo src/chanlun/config.py
+
+config.py 含个人 API key，已被 .gitignore 忽略，不会提交到仓库
+"""
+
+# WEB服务访问IP地址，本机部署设置为 127.0.0.1；局域网或外网部署，设置为该机器的IP地址，或者设置 0.0.0.0 则可使用机器所有IP地址进行访问。
+WEB_HOST = '127.0.0.1'
+
+# WEB 登录密码，为空则无需进行登录
+LOGIN_PWD = ''
+
+# 项目数据保存路径，如果以 . 开头，则保存到 home 目录，否则按照设置目录来
+# Windows 绝对路径建议用正斜杠 "E:/chanlun_data" 或原始字符串 r"E:\chanlun_data"（\c 等反斜杠组合是无效转义序列）
+DATA_PATH = ".chanlun_data"
+
+# 代理服务器配置（访问币安/OKX 等数字货币行情所需；A股/期货走通达信直连、AI 走硅基流动均不需要代理）
+# 本机 Clash 默认混合端口 7897，未使用代理可将 PROXY_HOST 置空
+PROXY_HOST = '127.0.0.1'
+PROXY_PORT = 7897
+
+# 数据库配置
+DB_TYPE = "sqlite"  # 支持  mysql 与 sqlite，如果是 sqlite 则只需填写 DB_DATABASE 即可
+DB_HOST = '127.0.0.1'
+DB_PORT = 3306
+DB_USER = 'user'
+DB_PWD = 'password'
+DB_DATABASE = 'chanlun_klines'
+
+# Redis 配置，不使用可将 REDIS_HOST 设置为空字符串（基本不用）
+REDIS_HOST = ''
+REDIS_PORT = 6379
+
+# 各个市场的交易所设置（只适用于WEB页面的行情展示）
+# db 表示读取数据库中的行情，适用于在国外或其他原因，tdx 无法正常使用的情况
+
+# A股市场支持：tdx / db
+# 期货市场支持：tdx_futures / db
+# 数字货币（合约）支持：binance / okx / db
+# 数字货币（现货）支持：binance_spot / okx_spot / db
+EXCHANGE_A = "tdx"  # 沪深A股市场
+EXCHANGE_FUTURES = "tdx_futures"  # 期货市场
+EXCHANGE_CURRENCY = "okx"  # 数字货币（合约）
+EXCHANGE_CURRENCY_SPOT = "okx_spot"  # 数字货币（现货）
+
+
+# 通达信目录（例如 C:/new_tdx），用于获取行业与概念信息，留空则使用 exchange/stocks_bkgn.json 进行获取
+TDX_PATH = ''
+
+# 币安交易所配置
+BINANCE_APIKEY = ''
+BINANCE_SECRET = ''
+
+# 欧意 OKX 交易所配置（行情无需 APIKEY，留空即可；交易接口未实现）
+OKX_APIKEY = ''
+OKX_SECRET = ''
+OKX_PASSPHRASE = ''
+
+# AI 分析配置  （硅基流动和 Openrouteai 二选一，都配置优先使用 Openrouteai）
+# 使用硅基流动的API调用模型，并返回数据
+# 注意：AI_TOKEN + AI_MODEL 供 AI 分析（ai_analyse.py）使用；
+#       AI_PROVIDER + AI_API_URL + AI_API_KEY + AI_MODEL 供 AI 预测（ai_client.py）使用，
+#       两处 AI_MODEL/AI key 同名各定义一次，后定义的生效，修改时请两处同步改
+# 邀请链接：https://cloud.siliconflow.cn/i/HwLeeOjK   （注册送 14 元）
+AI_TOKEN = ""
+AI_MODEL = "deepseek-ai/DeepSeek-V4.1-Flash"
+# 备选：deepseek-ai/DeepSeek-V4-Flash / zai-org/GLM-5.3 / Pro/moonshotai/Kimi-K2.6
+# deepseek-ai/DeepSeek-V4-Pro 高峰期常报 503 "System is too busy"，不建议
+# AI_MODEL = "Pro/deepseek-ai/DeepSeek-V3"
+
+# OpenRouterAI 的api key
+# API KEY 获取地址： https://openrouter.ai/settings/keys
+# 模型获取地址：https://openrouter.ai/models
+OPENROUTER_AI_KEYS = ""
+OPENROUTER_AI_MODEL = "google/gemini-2.5-pro-preview"
+
+# AI 预测配置（openai SDK 兼容接口，ai_client.py 统一使用）
+# 兼容硅基流动 / DeepSeek / OpenAI / OpenRouter 等任意 OpenAI 兼容服务
+AI_PROVIDER = "siliconflow"
+AI_API_URL = "https://api.siliconflow.cn/v1"
+AI_API_KEY = ""
+AI_MODEL = "deepseek-ai/DeepSeek-V4.1-Flash"
+
+# 飞书消息配置 (项目中新的消息推送使用飞书，user_id 是唯一的，不同的市场可以配置不同的机器人，没有设置则使用 default 的机器人)
+# 配置获取方法，在 web 页面的系统设置中有教程
+FEISHU_KEYS = {
+    "default": {
+        "app_id": "cli_********",
+        "app_secret": "TlQXy9Y7********",
+    },
+    "a": {
+        "app_id": "cli_********",
+        "app_secret": "TlQXy9Y7********",
+    },
+    "us": {
+        "app_id": "cli_********",
+        "app_secret": "TlQXy9Y7********",
+    },
+    "hk": {
+        "app_id": "cli_********",
+        "app_secret": "TlQXy9Y7********",
+    },
+    "fx": {
+        "app_id": "cli_********",
+        "app_secret": "TlQXy9Y7********",
+    },
+    "futures": {
+        "app_id": "cli_********",
+        "app_secret": "TlQXy9Y7********",
+    },
+    "ny_futures": {
+        "app_id": "cli_********",
+        "app_secret": "TlQXy9Y7********",
+    },
+    "currency_spot": {
+        "app_id": "cli_********",
+        "app_secret": "TlQXy9Y7********",
+    },
+    "currency": {
+        "app_id": "cli_********",
+        "app_secret": "TlQXy9Y7********",
+    },
+    "user_id": "86********",
+    "enable_img": False,
+}
+
+# Web 端缠论计算的最大K线数量（只重放最近 N 根，0 表示不限制）
+# 分钟级周期 10000 根全量重放需数分钟，会导致 web 请求超时黑屏；
+# 截断为最近 N 根后首次计算降到几十秒内，且只影响图表早期的缠论结构显示
+CL_CALC_MAX_KLINES = 3000
+
+def get_data_path():
+    # 获取项目数据的目录
+    data_path = pathlib.Path(DATA_PATH)
+    if DATA_PATH.startswith("."):
+        data_path = pathlib.Path().home() / DATA_PATH
+    if data_path.is_dir() is False:
+        data_path.mkdir(parents=True)
+    return data_path

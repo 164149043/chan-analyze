@@ -1,0 +1,35 @@
+# 缠论行情分析（自用版）依赖
+# 核心
+pandas
+numpy
+requests
+# 注意：PyPI 的 pytdx 1.72 有 GBK 解码 bug（get_security_list 报 TdxFunctionCallError）。
+# 装完后必须用本仓库 vendor/pytdx（修复版 1.72r1）覆盖 site-packages/pytdx：
+#   cp -r vendor/pytdx/* <venv>/Lib/site-packages/pytdx/
+pytdx==1.72
+TA-Lib
+mytt
+pyecharts==2.0.8
+# web
+flask
+flask-login
+tornado
+apscheduler
+tenacity
+lark-oapi
+pinyin
+pytz
+tzlocal
+tqdm
+# 数据源：A股板块(akshare) / 数字货币 OKX·币安(ccxt)；A股与期货行情走 vendor 里的 pytdx
+akshare
+ccxt
+# 工具
+dbutils
+sqlalchemy
+prettytable
+chardet
+matplotlib
+scipy
+openai
+gunicorn
